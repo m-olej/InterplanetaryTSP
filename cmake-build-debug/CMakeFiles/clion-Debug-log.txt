@@ -1,0 +1,15 @@
+"C:\Program Files\JetBrains\CLion 2023.1.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.1.3/bin/ninja/win/x64/ninja.exe" -G Ninja -S "C:\Users\User\Desktop\Comb. Opt. Proj\GravityTravellingSalesman" -B "C:\Users\User\Desktop\Comb. Opt. Proj\GravityTravellingSalesman\cmake-build-debug"
+CMake Warning (dev) at C:/Program Files/JetBrains/CLion 2023.1.3/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake:438 (message):
+  The package name passed to `find_package_handle_standard_args` (VORBIS)
+  does not match the name of the calling package (Vorbis).  This can lead to
+  problems in calling code that expects `find_package` result variables
+  (e.g., `_FOUND`) to follow a certain pattern.
+Call Stack (most recent call first):
+  cmake-build-debug/_deps/sfml-src/cmake/Modules/FindVorbis.cmake:25 (find_package_handle_standard_args)
+  cmake-build-debug/_deps/sfml-src/cmake/Macros.cmake:279 (find_package)
+  cmake-build-debug/_deps/sfml-src/src/SFML/Audio/CMakeLists.txt:70 (sfml_find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/User/Desktop/Comb. Opt. Proj/GravityTravellingSalesman/cmake-build-debug
