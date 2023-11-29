@@ -1,19 +1,7 @@
 #include "../include/Traveller.h"
-#include <math.h>
-
-
-Traveller::Traveller(float pos_x, float pos_y, float vel_x, float vel_y, float mass) {
-    pos.x = pos_x;
-    pos.y = pos_y;
-    vel.x = vel_x;
-    vel.y = vel_y;
-    this->mass = mass;
-    radius = 5.f;
-
-    traveller.setPosition(pos);
-    traveller.setFillColor(sf::Color::White);
-    traveller.setRadius(radius);
-}
+#include <cmath>
+#include <iostream>
+#include "../include/myMath.h"
 
 void Traveller::render(sf::RenderWindow &window) {
     traveller.setPosition(pos);
@@ -23,16 +11,20 @@ void Traveller::render(sf::RenderWindow &window) {
 // make it take a list of all Gravity Sources
 void Traveller::update_physics(std::vector<GravitySource> planets){
     for( GravitySource planet: planets) {
+
         float distance_x = (planet.getPos().x - pos.x) ;
         float distance_y = (planet.getPos().y - pos.y) ;
 
         float r = sqrt(distance_x * distance_x + distance_y * distance_y) ;
 
-        if(collisionDetection(r, get_radius(), planet.getRadius())){
+        if(collisionDetection(planet)){
+            std::cout << "Collision detected" << "\n";
             traveller.setFillColor(sf::Color::Red);
             vel.x = 0;
-            vel.y =0;
-        }else {
+            vel.y = 0;
+        }else{
+            // Not using the myMath.normalizeVector, because in this case we need the inverse_distance
+            // for the inverse distance_squared anyway so using the method would actually be slower.
             // because multiplication is faster than division
             float inverse_distance = 1.f / r;
             float inverse_distance_squared = inverse_distance * inverse_distance;
@@ -53,14 +45,16 @@ void Traveller::update_physics(std::vector<GravitySource> planets){
     }
 }
 
-bool Traveller::collisionDetection(float distance, float rad1, float rad2 ) {
-    if (distance <= (rad1 + rad2)){
+bool Traveller::collisionDetection(GravitySource planet) {
+    if(myMath::distanceBetween(get_pos(), planet.getPos()) <= get_radius()+planet.getRadius()){
         return true;
     }else{
         return false;
     }
 }
 
+// Change to Force multiplied by direction vector
+// Should be able to work 360 degrees around
 void Traveller::propulsion(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         vel.y -= getPropulsionAcceleration();
@@ -76,6 +70,14 @@ void Traveller::propulsion(){
     }
 }
 
+void Traveller::propulsion(sf::Vector2f position) {
+    sf::Vector2f relativePosition = position - get_pos();
+    sf::Vector2f normalizedRelativePosition = myMath::normalizeVector(relativePosition);
+    vel += getPropulsionAcceleration() * normalizedRelativePosition;
+}
+
+// Maybe optimize with
+// More frames when closer to a planet
 void Traveller::traceTrajectory(Traveller traveller, sf::RenderWindow &window ,std::vector<sf::Vector2f> &trajectory){
     trajectory.push_back(traveller.get_pos());
     for (sf::Vector2f postPas: trajectory){
@@ -86,8 +88,30 @@ void Traveller::traceTrajectory(Traveller traveller, sf::RenderWindow &window ,s
     }
 }
 
+////                       ////
+//// Classic Class Methods ////
+////                       ////
+
+Traveller::Traveller(float pos_x, float pos_y, float vel_x, float vel_y, float mass) {
+    pos.x = pos_x;
+    pos.y = pos_y;
+    vel.x = vel_x;
+    vel.y = vel_y;
+    this->mass = mass;
+    radius = 5.f;
+
+    traveller.setPosition(pos);
+    traveller.setOrigin(radius, radius);
+    traveller.setFillColor(sf::Color::White);
+    traveller.setRadius(radius);
+}
+
 sf::Vector2<float> Traveller::get_pos(){
     return pos;
+}
+
+sf::Vector2<float> Traveller::get_vel() {
+    return vel;
 }
 
 float Traveller::get_mass() {
@@ -99,7 +123,17 @@ float Traveller::get_radius(){
 }
 
 float Traveller::getPropulsionAcceleration() const {
-    return  1 / mass;
+    return  propulsionAcceleration / mass;
+}
+
+sf::Vector2<float> &Traveller::getLastPos(){
+    return last_pos;
+}
+
+void Traveller::setLastPos(sf::Vector2<float> &lastPos) {
+    last_pos = lastPos;
 }
 
 
+
+#pragma clang diagnostic pop

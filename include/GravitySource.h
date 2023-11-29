@@ -19,7 +19,12 @@ public:
 
     float getMass();
 
+    // for stopping simulation
+    void setMass( int mass);
+
     float getRadius();
+
+    void test();
 };
 
 

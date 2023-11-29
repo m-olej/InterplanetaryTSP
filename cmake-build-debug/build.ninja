@@ -73,6 +73,22 @@ build CMakeFiles/GravityTravellingSalesman.dir/src/Traveller.cpp.obj: CXX_COMPIL
   OBJECT_DIR = CMakeFiles\GravityTravellingSalesman.dir
   OBJECT_FILE_DIR = CMakeFiles\GravityTravellingSalesman.dir\src
 
+build CMakeFiles/GravityTravellingSalesman.dir/src/myMath.cpp.obj: CXX_COMPILER__GravityTravellingSalesman_Debug C$:/Users/User/Desktop/Comb.$ Opt.$ Proj/GravityTravellingSalesman/src/myMath.cpp || cmake_object_order_depends_target_GravityTravellingSalesman
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GravityTravellingSalesman.dir\src\myMath.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/User/Desktop/Comb. Opt. Proj/GravityTravellingSalesman/cmake-build-debug/_deps/sfml-src/include"
+  OBJECT_DIR = CMakeFiles\GravityTravellingSalesman.dir
+  OBJECT_FILE_DIR = CMakeFiles\GravityTravellingSalesman.dir\src
+
+build CMakeFiles/GravityTravellingSalesman.dir/src/Visualization.cpp.obj: CXX_COMPILER__GravityTravellingSalesman_Debug C$:/Users/User/Desktop/Comb.$ Opt.$ Proj/GravityTravellingSalesman/src/Visualization.cpp || cmake_object_order_depends_target_GravityTravellingSalesman
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GravityTravellingSalesman.dir\src\Visualization.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/User/Desktop/Comb. Opt. Proj/GravityTravellingSalesman/cmake-build-debug/_deps/sfml-src/include"
+  OBJECT_DIR = CMakeFiles\GravityTravellingSalesman.dir
+  OBJECT_FILE_DIR = CMakeFiles\GravityTravellingSalesman.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target GravityTravellingSalesman
@@ -81,7 +97,7 @@ build CMakeFiles/GravityTravellingSalesman.dir/src/Traveller.cpp.obj: CXX_COMPIL
 #############################################
 # Link the executable GravityTravellingSalesman.exe
 
-build GravityTravellingSalesman.exe: CXX_EXECUTABLE_LINKER__GravityTravellingSalesman_Debug CMakeFiles/GravityTravellingSalesman.dir/src/main.cpp.obj CMakeFiles/GravityTravellingSalesman.dir/src/GravitySource.cpp.obj CMakeFiles/GravityTravellingSalesman.dir/src/Traveller.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a || _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a
+build GravityTravellingSalesman.exe: CXX_EXECUTABLE_LINKER__GravityTravellingSalesman_Debug CMakeFiles/GravityTravellingSalesman.dir/src/main.cpp.obj CMakeFiles/GravityTravellingSalesman.dir/src/GravitySource.cpp.obj CMakeFiles/GravityTravellingSalesman.dir/src/Traveller.cpp.obj CMakeFiles/GravityTravellingSalesman.dir/src/myMath.cpp.obj CMakeFiles/GravityTravellingSalesman.dir/src/Visualization.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a || _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a
   FLAGS = -g
   LINK_LIBRARIES = _deps/sfml-build/lib/libsfml-graphics-s-d.a  _deps/sfml-build/lib/libsfml-window-s-d.a  _deps/sfml-build/lib/libsfml-system-s-d.a  -lwinmm  -lgdi32  -lopengl32  -lglu32  _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\GravityTravellingSalesman.dir

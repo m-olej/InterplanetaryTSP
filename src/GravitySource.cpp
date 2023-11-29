@@ -24,6 +24,15 @@ float GravitySource::getMass() {
     return Mass;
 }
 
+void GravitySource::setMass(int mass) {
+    this->Mass = mass;
+}
+
 float GravitySource::getRadius(){
     return Radius;
+}
+
+void GravitySource::test() {
+    setMass(0);
+    planet.setFillColor(sf::Color::Yellow);
 }

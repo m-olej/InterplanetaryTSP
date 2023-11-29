@@ -7,10 +7,12 @@
 
 class Traveller {
     sf::Vector2<float> pos;
+    sf::Vector2<float> last_pos = {1100, 350};
+private:
     sf::Vector2<float> vel;
     sf::CircleShape traveller;
     sf::CircleShape trace;
-    float propulsionAcceleration;
+    float propulsionAcceleration = 100;
     float mass;
     float radius;
 
@@ -21,9 +23,18 @@ public:
 
     void update_physics(std::vector<GravitySource> planets);
 
+    // keys control
     void propulsion();
+    // 360 vector propulsion used for algorithm
+    void propulsion(sf::Vector2f position);
 
     sf::Vector2<float> get_pos();
+
+    sf::Vector2<float> get_vel();
+
+    sf::Vector2<float> &getLastPos();
+
+    void setLastPos(sf::Vector2<float> &lastPos);
 
     float get_mass();
 
@@ -31,7 +42,7 @@ public:
 
     float getPropulsionAcceleration() const;
 
-    bool collisionDetection(float distance, float rad1, float rad2);
+    bool collisionDetection(GravitySource planet);
 
     void traceTrajectory(Traveller traveller, sf::RenderWindow &window, std::vector<sf::Vector2f> &trajectory);
 };
