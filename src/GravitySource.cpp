@@ -8,6 +8,7 @@ GravitySource::GravitySource(float pos_x, float pos_y, float Mass) {
     Radius = std::cbrt((3*Mass)/(4*3.14));
 
     planet.setPosition(Pos);
+    planet.setOrigin(Radius, Radius);
     planet.setFillColor(sf::Color::White);
     planet.setRadius( Radius );
 }

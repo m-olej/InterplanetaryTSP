@@ -73,7 +73,9 @@ void Traveller::propulsion(){
 void Traveller::propulsion(sf::Vector2f position) {
     sf::Vector2f relativePosition = position - get_pos();
     sf::Vector2f normalizedRelativePosition = myMath::normalizeVector(relativePosition);
-    vel += getPropulsionAcceleration() * normalizedRelativePosition;
+    sf::Vector2f wantedAcceleration = getPropulsionAcceleration() * normalizedRelativePosition;
+    sf::Vector2f neededChange = wantedAcceleration - vel;
+    vel += neededChange;
 }
 
 // Maybe optimize with
@@ -133,7 +135,3 @@ sf::Vector2<float> &Traveller::getLastPos(){
 void Traveller::setLastPos(sf::Vector2<float> &lastPos) {
     last_pos = lastPos;
 }
-
-
-
-#pragma clang diagnostic pop

@@ -2,31 +2,18 @@
 #include "../include/GravitySource.h"
 #include "../include/Traveller.h"
 #include <vector>
+#include<cstdlib>
 #include <iostream>
 
 // Render only after finding optimal solution with greedy algorithm
 // Render only when reached another milestone in metaheursitic algo
 
-int visualize()
+int visualize(std::vector<GravitySource> planets, Traveller traveller)
 {
     sf::RenderWindow window(sf::VideoMode(1600, 1000), "Visualization");
     window.setFramerateLimit(60);
 
-//    //bottom-left
-//    GravitySource planetA(600, 500, 550);
-//    //top-left
-//    GravitySource planetB(600, 200, 350);
-//    //bottom-right
-//    GravitySource planetC(900, 500, 450);
-//    //top-right
-//    GravitySource planetD(900, 200, 200);
-//    std::vector<GravitySource> planets = {planetA, planetB, planetC, planetD};
-    GravitySource planetTest(1500,800, 0);
-    std::vector<GravitySource> planets = { planetTest };
-
-    Traveller traveller(1100, 350, 0, 0, 50);
     std::vector<sf::Vector2f> trajectory;
-
     while (window.isOpen())
     {
         sf::Event event;
@@ -47,11 +34,9 @@ int visualize()
         window.clear();
         traveller.update_physics(planets);
         traveller.propulsion();
-//        traveller.propulsion(planetTest.getPos());
-//        planetA.render(window);
-//        planetB.render(window);
-//        planetC.render(window);
-//        planetD.render(window);
+        for(GravitySource planet: planets){
+            planet.render(window);
+        }
 //        planetTest.render(window);
         traveller.render(window);
         traveller.traceTrajectory(traveller, window, trajectory);
@@ -63,8 +48,53 @@ int visualize()
     return 0;
 }
 
+std::vector<GravitySource> planetGen(int num){
+
+    std::vector<GravitySource> planets;
+    srand((unsigned) time(NULL));
+    float mass, posX, posY;
+    for(int i = 0; i < num; ++i){
+        float mass = (rand() % (5000 - 1000 + 1)) + 1000;
+        float posX = (rand() % (1500 - 100 + 1)) + 100;
+        float posY = (rand() % (900 - 100 + 1)) + 100;
+        planets.push_back(GravitySource(posX, posY, mass));
+    }
+    int increment = 1;
+    for(GravitySource planet: planets){
+        std::cout << "Planet " << increment << "\n";
+        std::cout << "Mass:  " << planet.getMass() << " Pos_x: " << planet.getPos().x << " Pos_y: " << planet.getPos().y << "\n";
+        ++increment;
+    }
+
+    return planets;
+}
+
+sf::Vector2f initCoordinates(){
+    sf::Vector2f initPosition;
+    srand((unsigned)time(NULL));
+    float posx = rand() % 1600;
+    float posy = rand() % 1000;
+    initPosition.x = posx;
+    initPosition.y = posy;
+
+    return initPosition;
+}
+
 int main()
 {
-    visualize();
+    // Random generation algorithm
+    //bottom-left
+    GravitySource planetA(600, 500, 1000);
+    //top-left
+    GravitySource planetB(600, 200, 500);
+    //bottom-right
+    GravitySource planetC(900, 500, 800);
+    //top-right
+    GravitySource planetD(900, 200, 700);
+    std::vector<GravitySource> planets = {planetA, planetB, planetC, planetD};
+//    GravitySource planetTest(800,500, 8000);
+//    sf::Vector2f pos = initCoordinates();
+    Traveller traveller(1000, 500, 0, -2, 50);
+    visualize( planets, traveller );
     return 0;
 }

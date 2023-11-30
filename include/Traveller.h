@@ -12,7 +12,7 @@ private:
     sf::Vector2<float> vel;
     sf::CircleShape traveller;
     sf::CircleShape trace;
-    float propulsionAcceleration = 100;
+    float propulsionAcceleration = 1;
     float mass;
     float radius;
 
