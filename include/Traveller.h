@@ -12,7 +12,8 @@ private:
     sf::Vector2<float> vel;
     sf::CircleShape traveller;
     sf::CircleShape trace;
-    float propulsionAcceleration = 1;
+    float propulsionAcceleration = 4;
+    sf::RectangleShape propulsionLine;
     float mass;
     float radius;
 
@@ -24,9 +25,9 @@ public:
     void update_physics(std::vector<GravitySource> planets);
 
     // keys control
-    void propulsion();
+    void propulsion(sf::RenderWindow &window);
     // 360 vector propulsion used for algorithm
-    void propulsion(sf::Vector2f position);
+    void propulsion(sf::Vector2f position, sf::RenderWindow &window);
 
     sf::Vector2<float> get_pos();
 

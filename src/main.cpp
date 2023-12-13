@@ -1,12 +1,13 @@
 #include "SFML/Graphics.hpp"
 #include "../include/GravitySource.h"
 #include "../include/Traveller.h"
+#include "../include/Algos.h"
 #include <vector>
 #include<cstdlib>
 #include <iostream>
 
 // Render only after finding optimal solution with greedy algorithm
-// Render only when reached another milestone in metaheursitic algo
+// Render only when reached another milestone in metaheuristic algo
 
 int visualize(std::vector<GravitySource> planets, Traveller traveller)
 {
@@ -26,21 +27,19 @@ int visualize(std::vector<GravitySource> planets, Traveller traveller)
             {
                 // left click...
                 sf::Vector2f position = sf::Vector2f (sf::Mouse::getPosition(window));
-                std::cout << position.x << ", " << position.y << "\n";
-                traveller.propulsion(position);
+                std::cout << position.x << ", " << position.y << '\n';
+                traveller.propulsion(position, window);
             }
         }
 
         window.clear();
+        traveller.propulsion(window);
         traveller.update_physics(planets);
-        traveller.propulsion();
         for(GravitySource planet: planets){
             planet.render(window);
         }
-//        planetTest.render(window);
         traveller.render(window);
         traveller.traceTrajectory(traveller, window, trajectory);
-
 
         //draw calls
         window.display();
@@ -86,15 +85,21 @@ int main()
     //bottom-left
     GravitySource planetA(600, 500, 1000);
     //top-left
-    GravitySource planetB(600, 200, 500);
+    GravitySource planetB(600, 200, 1500);
     //bottom-right
-    GravitySource planetC(900, 500, 800);
+    GravitySource planetC(900, 500, 1950);
     //top-right
-    GravitySource planetD(900, 200, 700);
+    GravitySource planetD(900, 200, 1200);
+//    GravitySource planetTest(800,500, 4000);
+
     std::vector<GravitySource> planets = {planetA, planetB, planetC, planetD};
-//    GravitySource planetTest(800,500, 8000);
 //    sf::Vector2f pos = initCoordinates();
-    Traveller traveller(1000, 500, 0, -2, 50);
-    visualize( planets, traveller );
+    Traveller traveller(901, 700, 0, 0, 50);
+
+
+    std::map<int, GravitySource> order = Algos::orderAlgorithm(planets, traveller);
+    // should take in dt
+//    visualize( planets, traveller );
+
     return 0;
 }

@@ -1,5 +1,5 @@
 #include "../include/myMath.h"
-#include <math.h>
+
 
 sf::Vector2f myMath::normalizeVector(sf::Vector2f vector) {
     // A normalized vector helps to change only the direction of other vectors
@@ -31,3 +31,46 @@ float myMath::magnitude(sf::Vector2f vec){
     return sqrt(vec.x * vec.x + vec.y * vec.y);
 }
 
+double myMath::angleOfVector(sf::Vector2f vec) {
+    double angle;
+    if(vec.x > 0 && vec.y > 0){
+        // Quadrant I
+        if(vec.x == 0){
+            float fakeX = 0.1;
+            angle = std::atan(vec.y/fakeX) * 180/PI;
+        }else{
+            angle = std::atan(vec.y/vec.x) * 180/PI;
+        }
+    }else if(vec.x < 0 && vec.y > 0){
+        // Quadrant II
+        if(vec.x == 0){
+            float fakeX = 0.00000001;
+            angle = std::atan(vec.y/fakeX) * 180/PI;
+
+        }else{
+            angle = std::atan(vec.y/vec.x) * 180/PI;
+        }
+        angle += 180;
+    }else if(vec.x < 0 && vec.y < 0){
+        // Quadrant III
+        if(vec.x == 0){
+            float fakeX = 0.00000001;
+            angle = std::atan(vec.y/fakeX) * 180/PI;
+        }else{
+            angle = std::atan(vec.y/vec.x) * 180/PI;
+        }
+        angle += 180;
+    }else if(vec.x > 0 && vec.y < 0){
+        // Quadrant IV
+        if(vec.x == 0){
+            float fakeX = 0.00000001;
+            angle = std::atan(vec.y/fakeX) * 180/PI;
+        }else{
+            angle = std::atan(vec.y/vec.x) * 180/PI;
+        }
+        angle += 360;
+    }
+    // for clarity, because y is increasing downward for some reason in SFML
+    // Angle with x positive to the right and y positive upwards
+    return 360 - angle;
+}

@@ -36,11 +36,15 @@ void Traveller::update_physics(std::vector<GravitySource> planets){
             float acceleration_x = normalized_x * planet.getMass() * inverse_distance_squared;
             float acceleration_y = normalized_y * planet.getMass() * inverse_distance_squared;
 
-            vel.x += acceleration_x;
-            vel.y += acceleration_y;
+            // dt
+            // vel.x += a.x * dt
+            // vel.y += a.y * dt
 
-            pos.x += vel.x;
-            pos.y += vel.y;
+            vel.x += acceleration_x /4;
+            vel.y += acceleration_y /4;
+
+            pos.x += vel.x /4;
+            pos.y += vel.y /4;
         }
     }
 }
@@ -55,26 +59,50 @@ bool Traveller::collisionDetection(GravitySource planet) {
 
 // Change to Force multiplied by direction vector
 // Should be able to work 360 degrees around
-void Traveller::propulsion(){
+void Traveller::propulsion(sf::RenderWindow &window){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         vel.y -= getPropulsionAcceleration();
+
+        propulsionLine.setPosition(get_pos());
+        propulsionLine.setRotation(90);
+        window.draw(propulsionLine);
+        return;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         vel.y += getPropulsionAcceleration();
+
+        propulsionLine.setPosition(get_pos());
+        propulsionLine.setRotation(-90);
+        window.draw(propulsionLine);
+        return;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         vel.x -= getPropulsionAcceleration();
+
+        propulsionLine.setPosition(get_pos());
+        propulsionLine.setRotation(0);
+        window.draw(propulsionLine);
+        return;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         vel.x += getPropulsionAcceleration();
+        propulsionLine.setPosition(get_pos());
+        propulsionLine.setRotation(180);
+        window.draw(propulsionLine);
+        return;
     }
 }
 
-void Traveller::propulsion(sf::Vector2f position) {
+void Traveller::propulsion(sf::Vector2f position, sf::RenderWindow &window) {
     sf::Vector2f relativePosition = position - get_pos();
     sf::Vector2f normalizedRelativePosition = myMath::normalizeVector(relativePosition);
     sf::Vector2f wantedAcceleration = getPropulsionAcceleration() * normalizedRelativePosition;
     sf::Vector2f neededChange = wantedAcceleration - vel;
+    double angle = atan(relativePosition.y/relativePosition.x) * 180 / 3.1415926;
+    propulsionLine.setPosition(get_pos());
+    propulsionLine.rotate(-angle);
+    std::cout << angle << "\n";
+    window.draw(propulsionLine);
     vel += neededChange;
 }
 
@@ -106,6 +134,9 @@ Traveller::Traveller(float pos_x, float pos_y, float vel_x, float vel_y, float m
     traveller.setOrigin(radius, radius);
     traveller.setFillColor(sf::Color::White);
     traveller.setRadius(radius);
+
+    propulsionLine.setFillColor(sf::Color::Red);
+    propulsionLine.setSize(sf::Vector2f(15, 5));
 }
 
 sf::Vector2<float> Traveller::get_pos(){

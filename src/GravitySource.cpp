@@ -5,6 +5,7 @@ GravitySource::GravitySource(float pos_x, float pos_y, float Mass) {
     Pos.x = pos_x;
     Pos.y = pos_y;
     this->Mass = Mass;
+    // density = 1 for simplicity
     Radius = std::cbrt((3*Mass)/(4*3.14));
 
     planet.setPosition(Pos);

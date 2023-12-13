@@ -9,6 +9,6 @@ FETCHCONTENT_DECLARE(SFML GIT_REPOSITORY https://github.com/SFML/SFML.git GIT_TA
 FETCHCONTENT_MAKEAVAILABLE(SFML)
 
 
-add_executable(GravityTravellingSalesman src/main.cpp src/GravitySource.cpp include/GravitySource.h src/Traveller.cpp include/Traveller.h src/myMath.cpp include/myMath.h src/Visualization.cpp)
+add_executable(GravityTravellingSalesman src/main.cpp src/GravitySource.cpp include/GravitySource.h src/Traveller.cpp include/Traveller.h src/myMath.cpp include/myMath.h src/Algos.cpp include/Algos.h)
 
 target_link_libraries(GravityTravellingSalesman sfml-graphics)
