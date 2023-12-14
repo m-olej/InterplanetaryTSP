@@ -6,6 +6,7 @@
 #include "myMath.h"
 #include "SFML/Graphics.hpp"
 #include <map>
+#include <list>
 
 
 class Algos {

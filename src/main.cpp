@@ -41,6 +41,7 @@ int visualize(std::vector<GravitySource> planets, Traveller traveller)
         traveller.render(window);
         traveller.traceTrajectory(traveller, window, trajectory);
 
+
         //draw calls
         window.display();
     }
@@ -83,23 +84,24 @@ int main()
 {
     // Random generation algorithm
     //bottom-left
-    GravitySource planetA(600, 500, 1000);
+    GravitySource planetA(599, 504, 1000);
     //top-left
-    GravitySource planetB(600, 200, 1500);
+    GravitySource planetB(603, 202, 1500);
     //bottom-right
-    GravitySource planetC(900, 500, 1950);
+    GravitySource planetC(900, 501, 1950);
     //top-right
-    GravitySource planetD(900, 200, 1200);
-//    GravitySource planetTest(800,500, 4000);
-
+    GravitySource planetD(905, 204, 1200);
+    GravitySource planetTest(800,500, 4000);
+//    std::vector<GravitySource> planets = {planetTest};
     std::vector<GravitySource> planets = {planetA, planetB, planetC, planetD};
-//    sf::Vector2f pos = initCoordinates();
-    Traveller traveller(901, 700, 0, 0, 50);
-
+    std::cout << "\n";
+    sf::Vector2f pos = initCoordinates();
+    Traveller traveller(pos.x, pos.y, 0, 0, 50);
 
     std::map<int, GravitySource> order = Algos::orderAlgorithm(planets, traveller);
+
     // should take in dt
-//    visualize( planets, traveller );
+    visualize( planets, traveller );
 
     return 0;
 }

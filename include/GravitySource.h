@@ -22,6 +22,8 @@ public:
     // for stopping simulation
     void setMass( int mass);
 
+    void setColor(sf::Color);
+
     float getRadius();
 
     void test();

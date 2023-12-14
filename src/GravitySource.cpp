@@ -30,6 +30,10 @@ void GravitySource::setMass(int mass) {
     this->Mass = mass;
 }
 
+void GravitySource::setColor(sf::Color colour){
+    this->planet.setFillColor(colour);
+}
+
 float GravitySource::getRadius(){
     return Radius;
 }

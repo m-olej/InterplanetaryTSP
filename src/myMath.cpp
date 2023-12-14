@@ -31,6 +31,7 @@ float myMath::magnitude(sf::Vector2f vec){
     return sqrt(vec.x * vec.x + vec.y * vec.y);
 }
 
+// x-axis to the right, y-axis upwards
 double myMath::angleOfVector(sf::Vector2f vec) {
     double angle;
     if(vec.x > 0 && vec.y > 0){
@@ -74,3 +75,9 @@ double myMath::angleOfVector(sf::Vector2f vec) {
     // Angle with x positive to the right and y positive upwards
     return 360 - angle;
 }
+
+double myMath::angleBetweenVectors(sf::Vector2f vec1, sf::Vector2f vec2) {
+    double angle = std::acos((myMath::dotProduct(vec1, vec2))/(myMath::magnitude(vec1)*myMath::magnitude(vec2)));
+    return angle * 180/PI;
+}
+

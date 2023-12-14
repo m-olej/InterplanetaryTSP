@@ -15,6 +15,8 @@ public:
     static float magnitude(sf::Vector2f vec);
 
     static double angleOfVector(sf::Vector2f vec);
+
+    static double angleBetweenVectors(sf::Vector2f vec1, sf::Vector2f vec2);
 };
 
 
