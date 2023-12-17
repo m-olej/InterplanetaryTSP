@@ -82,6 +82,10 @@ sf::Vector2f initCoordinates(){
 
 int main()
 {
+
+    ///
+    /// Setup part
+    ///
     // Random generation algorithm
     //bottom-left
     GravitySource planetA(599, 504, 1000);
@@ -91,14 +95,31 @@ int main()
     GravitySource planetC(900, 501, 1950);
     //top-right
     GravitySource planetD(905, 204, 1200);
-    GravitySource planetTest(800,500, 4000);
+
+//    GravitySource planetTest(800,500, 5000);
 //    std::vector<GravitySource> planets = {planetTest};
     std::vector<GravitySource> planets = {planetA, planetB, planetC, planetD};
-    std::cout << "\n";
-    sf::Vector2f pos = initCoordinates();
-    Traveller traveller(pos.x, pos.y, 0, 0, 50);
 
-    std::map<int, GravitySource> order = Algos::orderAlgorithm(planets, traveller);
+//    GravitySource ex1(300, 450, 2000);
+//    GravitySource ex2(700, 300, 4000);
+//    GravitySource ex3(1300, 600, 1000);
+
+//    std::vector<GravitySource> planets = {ex1, ex2, ex3};
+//    sf::Vector2f pos = initCoordinates();
+
+    Traveller traveller(100, 800, 0, 0, 50);
+
+    ///
+    /// Search for optimal order of visitation
+    ///
+
+    Algos::orderAlgorithmFull(planets, traveller);
+    std::cout << "\n";
+    Algos::orderAlgorithmGreed(planets, traveller);
+
+    /// Metaheuristic steering algorithm to each planet in order
+    /// (visualize after every optimal trajectory reach for a planet)
+    /// Concatonate optimal thrustFunctions to achieve full trajectory
 
     // should take in dt
     visualize( planets, traveller );

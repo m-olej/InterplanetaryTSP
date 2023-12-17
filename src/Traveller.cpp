@@ -3,6 +3,8 @@
 #include <iostream>
 #include "../include/myMath.h"
 
+#define G 6.67e-11
+
 void Traveller::render(sf::RenderWindow &window) {
     traveller.setPosition(pos);
     window.draw(traveller);
